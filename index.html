@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b18">
+  <meta name="description" content="DSA Computer Club by Dear Sir Home Tuition. Learn coding, algorithms, problem-solving, and build projects together.">
+  <title>DSA Computer Club | Dear Sir Home Tuition</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070b18;
+      --bg-2: #0b1124;
+      --surface: rgba(17, 24, 45, 0.72);
+      --surface-solid: #11182d;
+      --surface-2: rgba(255, 255, 255, 0.055);
+      --text: #f5f7ff;
+      --muted: #a7b0c7;
+      --line: rgba(255, 255, 255, 0.09);
+      --primary: #7c5cff;
+      --primary-2: #22d3ee;
+      --green: #34d399;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --soft-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+      --radius: 22px;
+      --max: 1180px;
+      --header: 76px;
+    }
+
+    body.light {
+      --bg: #f5f7ff; --bg-2: #eef2ff; --surface: rgba(255, 255, 255, 0.8);
+      --surface-solid: #ffffff; --surface-2: rgba(20, 30, 70, 0.045);
+      --text: #10162a; --muted: #5d6882; --line: rgba(20, 30, 70, 0.1);
+    }
+
+    body.beige {
+      --bg: #fffaf1; --bg-2: #fff4df; --surface: rgba(255, 250, 241, 0.82);
+      --surface-solid: #fffaf1; --surface-2: rgba(80, 45, 20, 0.045);
+      --text: #2d241d; --muted: #756657; --line: rgba(80, 45, 20, 0.12);
+      --primary: #d66b43; --primary-2: #eab308;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(900px 500px at 8% -5%, rgba(124, 92, 255, 0.24), transparent 60%), radial-gradient(800px 500px at 92% 8%, rgba(34, 211, 238, 0.14), transparent 55%), linear-gradient(180deg, var(--bg), var(--bg-2) 45%, var(--bg));
+      background-attachment: fixed; line-height: 1.6; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    a { color: inherit; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid rgba(34, 211, 238, 0.65); outline-offset: 4px; }
+
+    .container { width: min(var(--max), calc(100% - 36px)); margin-inline: auto; }
+    .section { padding: 96px 0; scroll-margin-top: 90px; }
+    h1, h2, h3 { font-family: "Space Grotesk", Inter, sans-serif; line-height: 1.1; letter-spacing: -0.035em; }
+    h1 { font-size: clamp(46px, 7vw, 82px); margin: 18px 0; }
+    h2 { font-size: clamp(34px, 5vw, 54px); margin: 12px 0; }
+    h3 { font-size: 21px; margin: 0 0 9px; }
+    p { margin: 0; }
+    .muted { color: var(--muted); }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px;
+      border: 1px solid var(--line); border-radius: 999px; color: var(--primary-2);
+      background: var(--surface-2); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 16px var(--green); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 44px; padding: 0 17px; border: 1px solid transparent; border-radius: 13px;
+      text-decoration: none; font-size: 13px; font-weight: 800; transition: transform 0.2s, box-shadow 0.2s, background 0.2s, opacity 0.2s;
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn-primary { color: #fff; background: linear-gradient(135deg, var(--primary), #6350e8); box-shadow: 0 12px 30px rgba(124, 92, 255, 0.25); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: var(--surface-2); }
+    .btn-green { color: #05251b; background: var(--green); box-shadow: 0 10px 26px rgba(52, 211, 153, 0.2); }
+    .btn-small { min-height: 38px; padding: 0 13px; }
+
+    .site-header {
+      position: sticky; top: 0; z-index: 100; height: var(--header);
+      border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 72%, transparent);
+      backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%);
+    }
+    .header-inner { height: 100%; display: flex; align-items: center; gap: 22px; }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; min-width: max-content; }
+    .brand-mark { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 13px; font-family: "Space Grotesk"; font-weight: 800; color: white; background: linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow: 0 8px 24px rgba(124, 92, 255, 0.28); }
+    .brand-text strong { display: block; font-size: 14px; }
+    .brand-text span { display: block; font-size: 11px; color: var(--muted); }
+
+    nav { margin-left: auto; }
+    nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+    nav a { display: block; padding: 9px 12px; border-radius: 10px; text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 700; transition: all 0.2s; }
+    nav a:hover, nav a.active { color: var(--text); background: var(--surface-2); }
+    
+    .header-actions { display: flex; align-items: center; gap: 9px; }
+    .icon-btn, .menu-btn { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); background: var(--surface-2); display: grid; place-items: center; transition: background 0.2s; }
+    .icon-btn:hover { background: var(--surface); }
+    .menu-btn { display: none; }
+
+    .hero { position: relative; min-height: calc(100vh - var(--header)); display: grid; align-items: center; padding: 70px 0 90px; }
+    .grid-bg { position: absolute; inset: 0; pointer-events: none; opacity: 0.45; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 56px 56px; mask-image: linear-gradient(to bottom, black, transparent 82%); -webkit-mask-image: linear-gradient(to bottom, black, transparent 82%); }
+    .hero-content { position: relative; z-index: 1; max-width: 850px; }
+    
+    .hero h1 span { background: linear-gradient(100deg, #fff 10%, #a99aff 45%, #65e7f7 85%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    body.light .hero h1 span, body.beige .hero h1 span { background: linear-gradient(100deg, var(--text), var(--primary), var(--primary-2)); -webkit-background-clip: text; background-clip: text; }
+
+    .hero-copy { max-width: 700px; font-size: 18px; color: var(--muted); }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 34px; color: var(--muted); font-size: 13px; }
+    .hero-meta strong { color: var(--text); }
+
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    .orb { position: absolute; border-radius: 50%; filter: blur(1px); pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 70px rgba(124, 92, 255, 0.18), 0 0 100px rgba(34, 211, 238, 0.08); animation: float 8s ease-in-out infinite; }
+    .orb.one { width: 300px; height: 300px; right: 8%; top: 18%; background: radial-gradient(circle at 35% 30%, rgba(124, 92, 255, 0.18), transparent 60%); }
+    .orb.two { width: 120px; height: 120px; right: 29%; bottom: 14%; background: radial-gradient(circle, rgba(34, 211, 238, 0.2), transparent 68%); animation-delay: -3s; }
+
+    .code-card {
+      position: absolute; right: 0; bottom: 8%; width: 320px; padding: 18px;
+      border: 1px solid var(--line); border-radius: 20px; background: rgba(9, 14, 30, 0.7);
+      box-shadow: var(--shadow); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      transform: rotate(2deg); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: #b9c5e2; transition: transform 0.3s ease;
+    }
+    .code-card:hover { transform: rotate(0deg) scale(1.02); }
+    body.light .code-card, body.beige .code-card { background: rgba(255, 255, 255, 0.82); }
+    .code-top { display: flex; gap: 6px; margin-bottom: 15px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: 0.6; }
+    .code-line { white-space: pre; }
+    .keyword { color: #a99aff; } .func { color: #67e8f9; } .comment { color: #7885a5; font-style: italic; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 28px; }
+    .stat { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--soft-shadow); }
+    .stat strong { display: block; font: 700 30px "Space Grotesk"; margin-bottom: 4px; }
+    .stat span { font-size: 12px; color: var(--muted); }
+
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 32px; }
+    .section-head > div:last-child { max-width: 520px; color: var(--muted); font-size: 15px; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .feature { position: relative; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, var(--surface), var(--surface-2)); box-shadow: var(--soft-shadow); overflow: hidden; transition: transform 0.25s, border-color 0.25s; }
+    .feature:hover { transform: translateY(-5px); border-color: rgba(124, 92, 255, 0.38); }
+    .feature::after { content: ""; position: absolute; width: 100px; height: 100px; border-radius: 50%; right: -45px; top: -45px; background: rgba(124, 92, 255, 0.1); }
+    .feature-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px; background: rgba(124, 92, 255, 0.13); color: #b7abff; font-size: 20px; margin-bottom: 20px; }
+
+    .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .step-card { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(180deg, var(--surface), var(--surface-2)); position: relative; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;}
+    .step-card:hover { transform: translateY(-3px); box-shadow: var(--soft-shadow); border-color: rgba(34, 211, 238, 0.4); }
+    
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(34, 211, 238, 0.1); color: var(--primary-2); font-weight: 800; font-size: 14px; margin-bottom: 16px; }
+    .step-card h3 { font-size: 19px; margin-bottom: 6px; }
+    .step-card p { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; flex-grow: 1;}
+    .step-actions { display: grid; gap: 8px; margin-top: auto; }
+    
+    .actions-single { grid-template-columns: 1fr; }
+    .actions-dual { grid-template-columns: 1fr 1fr; }
+
+    /* Interactive Suggestions & Inbox Section */
+    .interaction-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .interaction-box {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .interaction-box h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .interaction-box p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .interaction-form {
+      display: grid;
+      gap: 12px;
+      margin-top: auto;
+    }
+    .interaction-form textarea, .interaction-form input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-2);
+      color: var(--text);
+      outline: none;
+      resize: vertical;
+    }
+    .interaction-form textarea:focus, .interaction-form input:focus {
+      border-color: var(--primary);
+    }
+    .inbox-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-top: auto;
+    }
+    .inbox-feed::-webkit-scrollbar { width: 4px; }
+    .inbox-feed::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+    .inbox-item {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-2);
+      font-size: 13px;
+    }
+    .inbox-item span {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .contact-box {
+      position: relative; overflow: hidden; padding: 42px; border: 1px solid rgba(124, 92, 255, 0.3); border-radius: 28px;
+      background: radial-gradient(450px 200px at 85% 20%, rgba(34, 211, 238, 0.14), transparent 70%), radial-gradient(450px 220px at 10% 100%, rgba(124, 92, 255, 0.16), transparent 70%), var(--surface);
+    }
+    .contact-box p { color: var(--muted); max-width: 650px; margin: 12px 0 22px; }
+    .email { font-weight: 800; color: var(--primary-2); text-decoration: none; }
+
+    .site-footer { padding: 80px 0 30px; border-top: 1px solid var(--line); background: var(--surface-solid); overflow: hidden; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+    .footer-brand-pill { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-weight: 700; font-size: 15px; margin-bottom: 24px; }
+    .footer-brand-pill svg { width: 20px; height: 20px; color: var(--primary-2); }
+    .footer-col h4 { font-size: 20px; margin: 0 0 24px; font-family: "Space Grotesk", sans-serif; }
+    .footer-locations { margin: 16px 0; display: flex; flex-wrap: wrap; gap: 10px; }
+    .loc-pill { padding: 8px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; background: var(--surface-2); text-transform: uppercase; }
+    .contact-list { list-style: none; padding: 0; margin: 0 0 30px; }
+    .contact-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: var(--muted); font-size: 14px; }
+    .contact-list svg { width: 18px; height: 18px; color: var(--primary-2); flex-shrink: 0; }
+    .social-row { display: flex; gap: 12px; }
+    .social-btn { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--text); transition: background 0.2s, color 0.2s; }
+    .social-btn:hover { background: var(--surface); color: var(--primary-2); }
+    .social-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    
+    .quick-links { list-style: none; padding: 0; margin: 0; }
+    .quick-links li { margin-bottom: 16px; }
+    .quick-links a { color: var(--text); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .quick-links a:hover { color: var(--primary-2); }
+    
+    .footer-giant { font-family: "Space Grotesk", sans-serif; font-size: clamp(50px, 11vw, 150px); font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; color: var(--text); margin-bottom: 40px; }
+    
+    .credits-section {
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .credits-section strong {
+      color: var(--text);
+    }
+
+    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+    .fab-call { position: fixed; bottom: 24px; right: 24px; z-index: 100; display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #34d399, #0ea5e9); color: #000; padding: 12px 24px; border-radius: 999px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3); transition: transform 0.2s, box-shadow 0.2s; }
+    .fab-call:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(14, 165, 233, 0.4); }
+    body.light .fab-call, body.beige .fab-call { color: #fff; }
+
+    .modal { position: fixed; inset: 0; z-index: 200; display: none; place-items: center; padding: 20px; background: rgba(2, 5, 15, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .modal.open { display: grid; }
+    
+    .modal-close { position: absolute; right: 18px; top: 18px; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--text); transition: background 0.2s; cursor: pointer; display: grid; place-items: center;}
+    .modal-close:hover { background: rgba(251, 113, 133, 0.15); color: var(--danger); }
+
+    .modal-panel-contact { width: min(480px, 100%); padding: 32px; border: 1px solid var(--line); border-radius: 24px; background: var(--surface-solid); box-shadow: var(--shadow); position: relative; }
+    .contact-options { display: grid; gap: 14px; margin-top: 24px; }
+    .contact-card { display: flex; align-items: center; gap: 16px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-2); text-decoration: none; color: var(--text); transition: all 0.2s ease; cursor: pointer;}
+    .contact-card:hover, .contact-card:focus-visible { background: var(--surface); border-color: var(--primary-2); transform: translateY(-2px); box-shadow: var(--soft-shadow); outline: none; }
+    .contact-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 14px; background: rgba(124, 92, 255, 0.15); font-size: 20px; font-weight: 800; color: var(--primary-2); }
+    .contact-info { flex: 1; }
+    .contact-info h4 { margin: 0 0 4px 0; font-size: 17px; font-family: "Space Grotesk", sans-serif; }
+    .contact-info span { font-size: 13px; color: var(--muted); }
+    .contact-arrow { color: var(--primary-2); font-size: 20px; font-weight: 800; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; }
+    .contact-card:hover .contact-arrow, .contact-card:focus-visible .contact-arrow { opacity: 1; transform: translateX(4px); }
+
+    .modal-panel-generic { width: min(900px, 95vw); max-height: 90vh; display: flex; flex-direction: column; padding: 32px; border: 1px solid var(--line); border-radius: 24px; background: var(--surface-solid); box-shadow: var(--shadow); position: relative; overflow-y: auto; }
+    .modal-panel-generic::-webkit-scrollbar { width: 6px; }
+    .modal-panel-generic::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 20px; }
+    .project-card { text-align: left; display: flex; flex-direction: column; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); text-decoration: none; color: var(--text); transition: all 0.2s; cursor: pointer; }
+    .project-card:hover { background: var(--surface); border-color: var(--primary-2); transform: translateY(-3px); box-shadow: var(--soft-shadow); }
+    .project-card h5 { margin: 0 0 6px 0; font-size: 16px; font-family: "Space Grotesk", sans-serif; }
+    .project-card span { font-size: 12px; color: var(--muted); line-height: 1.4; margin-bottom: 14px; flex-grow: 1; }
+    .project-tag { display: inline-block; align-self: flex-start; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; background: rgba(34, 211, 238, 0.1); color: var(--primary-2); }
+
+    .modal-panel-iframe { width: min(1200px, 95vw); height: 95vh; display: flex; flex-direction: column; padding: 24px; background: var(--bg); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); position: relative; }
+    .iframe-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .iframe-container { flex: 1; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #fff; position: relative; }
+    .iframe-loader { position: absolute; inset: 0; display: grid; place-items: center; background: var(--surface-solid); color: var(--text); font-weight: 700; z-index: 10; transition: opacity 0.4s; }
+    .iframe-container iframe { position: relative; z-index: 1; width: 100%; height: 100%; border: none; }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .spinner { animation: spin 1s linear infinite; }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; z-index: 300; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 13px 17px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-solid); box-shadow: var(--shadow); font-size: 13px; font-weight: 700; transition: opacity 0.3s, transform 0.3s; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 1024px) {
+      .step-grid, .interaction-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      nav { position: absolute; left: 18px; right: 18px; top: calc(var(--header) - 1px); padding: 10px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-solid); box-shadow: var(--shadow); display: none; }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; }
+      nav a { padding: 12px; }
+      .menu-btn { display: grid; }
+      .header-actions .btn-green { display: none; }
+      .code-card { position: relative; right: auto; bottom: auto; margin: 35px 0 0; width: min(100%, 360px); transform: rotate(1deg); }
+      .hero { display: block; padding-top: 70px; }
+      .orb.one { right: -100px; top: 20%; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .feature-grid, .interaction-grid { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .section-head > div:last-child { margin-top: 12px; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .fab-call { bottom: 16px; right: 16px; padding: 10px 20px; font-size: 13px; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .section { padding: 72px 0; }
+      .header-inner { gap: 10px; }
+      .brand-text { display: none; }
+      .hero-copy { font-size: 16px; }
+      .hero-meta { gap: 14px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 17px; }
+      .step-grid { grid-template-columns: 1fr; }
+      .contact-box { padding: 28px; }
+      .modal-panel-contact, .modal-panel-generic, .modal-panel-iframe { padding: 24px 20px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-giant { font-size: 42px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="DSA Computer Club home">
+        <span class="brand-mark">DSA</span>
+        <span class="brand-text"><strong>Computer Club</strong><span>Dear Sir Home Tuition</span></span>
+      </a>
+
+      <nav id="mainNav" aria-label="Primary navigation">
+        <ul>
+          <li><a class="active" href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#code-section">Code Section</a></li>
+          <li><a href="#feedback">Suggestions</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Change theme" title="Change theme">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button class="btn btn-green btn-small open-contact" id="contactTop">Text 9768797777 <span aria-hidden="true">↗</span></button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="grid-bg"></div>
+      <div class="orb one"></div>
+      <div class="orb two"></div>
+
+      <div class="container hero-content">
+        <span class="eyebrow">Build • Solve • Learn</span>
+        <h1>Turn curiosity into <span>real code.</span></h1>
+        <p class="hero-copy">
+          Welcome to the DSA Computer Club by Dear Sir Home Tuition. A student-led space 
+          to master data structures, algorithm problem-solving, and build cool projects together without 
+          the overwhelming tech jargon.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary open-contact" id="contactHero">Start Coding <span aria-hidden="true">→</span></button>
+          <a class="btn btn-secondary" href="#code-section">Explore Code Section</a>
+        </div>
+
+        <div class="hero-meta">
+          <span><strong>Hands-on</strong> learning</span>
+          <span><strong>Beginner-friendly</strong> community</span>
+          <span><strong>Projects</strong> that teach</span>
+        </div>
+
+        <div class="code-card" aria-hidden="true">
+          <div class="code-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+          <div class="code-line"><span class="comment">// Target Sum (Two Pointers)</span></div>
+          <div class="code-line"><span class="keyword">function</span> <span class="func">findPair</span>(arr, target) {</div>
+          <div class="code-line">  <span class="keyword">let</span> l = 0, r = arr.length - 1;</div>
+          <div class="code-line">  <span class="keyword">while</span> (l < r) {</div>
+          <div class="code-line">    <span class="keyword">let</span> sum = arr[l] + arr[r];</div>
+          <div class="code-line">    <span class="keyword">if</span> (sum === target) <span class="keyword">return</span> [l, r];</div>
+          <div class="code-line">    sum < target ? l++ : r--;</div>
+          <div class="code-line">  }</div>
+          <div class="code-line">}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section" id="about">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Why DSA?</span>
+          <h2>Learn by doing.</h2>
+        </div>
+        <div>
+          We believe the best way to understand complex concepts is to actually write the code. 
+          Our sessions are structured around practical implementation, not just theory.
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="3" y1="9" x2="21" y2="9"></line>
+              <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+          </div>
+          <h3>Hands-on workshops</h3>
+          <p class="muted">Work through whiteboard examples, write code on your machine, and understand exactly why the solution works.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>Friendly support</h3>
+          <p class="muted">Ask questions, learn at your own pace, and get 1-on-1 guidance when you are stuck on a bug.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <h3>Build together</h3>
+          <p class="muted">Take part in weekly coding challenges, pair up for team projects, and turn small ideas into portfolio pieces.</p>
+        </article>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><strong>3+</strong><span>Core learning areas</span></div>
+        <div class="stat"><strong>Weekly</strong><span>Meetup rhythm</span></div>
+        <div class="stat"><strong>100%</strong><span>Student-focused</span></div>
+        <div class="stat"><strong>∞</strong><span>Ideas to build</span></div>
+      </div>
+    </section>
+
+    <section class="container section" id="code-section">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Study Materials</span>
+          <h2>Code Section</h2>
+        </div>
+        <div>Curated beginner-to-advanced learning tracks. Follow the step-by-step path below to build real applications.</div>
+      </div>
+
+      <div class="step-grid">
+        <article class="step-card">
+          <div class="step-num">01</div>
+          <h3>Scratch</h3>
+          <p>Learn logic, loops, and conditions using an interactive visual block-based interface.</p>
+          <div class="step-actions actions-single">
+            <button class="btn btn-secondary btn-small open-scratch-paths">Projects</button>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">02</div>
+          <h3>Python</h3>
+          <p>Clean text-based coding covering fundamentals, variables, and media programming.</p>
+          <div class="step-actions actions-dual">
+            <button class="btn btn-secondary btn-small open-video" data-url="https://www.youtube.com/watch?v=K5KVEU3aaeQ&t=33s" data-title="Python Full Course - Programming with Mosh">Watch YouTube</button>
+            <button class="btn btn-secondary btn-small open-projects" data-lang="python">Projects</button>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">03</div>
+          <h3>HTML</h3>
+          <p>The standard markup language used to structure every page on the internet.</p>
+          <div class="step-actions actions-dual">
+            <button class="btn btn-secondary btn-small open-video" data-url="https://www.youtube.com/watch?v=a_iQb1lnAEQ" data-title="HTML Full Course for Beginners - SuperSimpleDev">Watch YouTube</button>
+            <button class="btn btn-secondary btn-small open-projects" data-lang="html">Projects</button>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">04</div>
+          <h3>CSS</h3>
+          <p>Bring web pages to life using modern layouts, Flexbox, Grid, and responsive design.</p>
+          <div class="step-actions actions-dual">
+            <button class="btn btn-secondary btn-small open-video" data-url="https://www.youtube.com/watch?v=G3e-cpL7ofc" data-title="CSS Full Course - SuperSimpleDev">Watch YouTube</button>
+            <button class="btn btn-secondary btn-small open-projects" data-lang="css">Projects</button>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">05</div>
+          <h3>JavaScript</h3>
+          <p>Add dynamic interactivity to the web. Master DOM manipulation, events, and logic.</p>
+          <div class="step-actions actions-dual">
+            <button class="btn btn-secondary btn-small open-video" data-url="https://www.youtube.com/watch?v=Zi-Q0t4gMC8" data-title="JavaScript Full Course - Bro Code">Watch YouTube</button>
+            <button class="btn btn-secondary btn-small open-projects" data-lang="javascript">Projects</button>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">06</div>
+          <h3>C++</h3>
+          <p>High-performance programming, object-oriented concepts, and memory management.</p>
+          <div class="step-actions actions-dual">
+            <button class="btn btn-secondary btn-small open-video" data-url="https://www.youtube.com/watch?v=-TkoO8Z07hI" data-title="C++ Full Course for Beginners - Bro Code">Watch YouTube</button>
+            <button class="btn btn-secondary btn-small open-projects" data-lang="cpp">Projects</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Anonymous Suggestions Box & Inbox Section -->
+    <section class="container section" id="feedback">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Community Voice</span>
+          <h2>Suggestions &amp; Inbox</h2>
+        </div>
+        <div>Share your anonymous feedback or ideas to help us improve the club, and check community updates below.</div>
+      </div>
+
+      <div class="interaction-grid">
+        <div class="interaction-box">
+          <h3>Anonymous Suggestions</h3>
+          <p>Got an idea for a project or feedback on a session? Drop it here anonymously.</p>
+          <form class="interaction-form" id="suggestionForm">
+            <textarea id="suggestionInput" placeholder="Write your suggestion anonymously here..." rows="4" required></textarea>
+            <button class="btn btn-primary" type="submit">Submit Suggestion</button>
+          </form>
+        </div>
+
+        <div class="interaction-box">
+          <h3>Inbox</h3>
+          <p>Recent community announcements and responses to suggestions.</p>
+          <div class="inbox-feed" id="inboxFeed">
+            <div class="inbox-item">
+              Welcome to the new anonymous feedback section! Keep your ideas coming.
+              <span>Pinned · Admin</span>
+            </div>
+            <div class="inbox-item">
+              More JavaScript algorithm sessions have been added to the weekend schedule based on requests.
+              <span>Update · Anish Sir</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section" id="contact">
+      <div class="contact-box">
+        <span class="eyebrow">Let's connect</span>
+        <h2>Ready to start building?</h2>
+        <p>Whether you have never written a line of code or you are already building apps, there is a spot for you here. Drop us a line!</p>
+        <a class="email" href="mailto:dearsir.tuition@gmail.com">dearsir.tuition@gmail.com</a>
+        <div style="margin-top:24px">
+          <button class="btn btn-primary open-contact" id="contactSectionBtn">Call 9764828999 <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-col">
+        <div class="footer-brand-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 16v-4"></path>
+            <path d="M12 8h.01"></path>
+          </svg>
+          Dear Sir Home Tuition
+        </div>
+        <p class="muted" style="font-size: 14px;">Now available in</p>
+        <div class="footer-locations">
+          <span class="loc-pill">JAPAN</span>
+          <span class="loc-pill">AUSTRALIA</span>
+          <span class="loc-pill">UK</span>
+          <span class="loc-pill">USA</span>
+          <span class="loc-pill">UAE</span>
+        </div>
+        <p class="muted" style="font-size: 14px;">and many more.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="contact-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            dearsir.tuition@gmail.com
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            +977-9764828999
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Banasthali, Kharibot, Kathmandu
+          </li>
+        </ul>
+        <div class="social-row">
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="quick-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#code-section">Code Section</a></li>
+          <li><a href="#feedback">Suggestions</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-giant">
+      Dear Sir<br>Home Tuition
+    </div>
+
+    <div class="container credits-section">
+      <div><strong>Platform:</strong> Aashif K.C.</div>
+      <div><strong>Scratch Projects &amp; Environment:</strong> Raspberry Pi Foundation (projects.raspberrypi.org)</div>
+      <div><strong>Python Video Course:</strong> Programming with Mosh (Code with Mosh)</div>
+      <div><strong>Python Curriculum &amp; Slide Content:</strong> CS101 / JES[cite: 1]</div>
+      <div><strong>HTML &amp; CSS Video Courses:</strong> SuperSimpleDev</div>
+      <div><strong>JavaScript &amp; C++ Video Courses:</strong> Bro Code</div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Dear Sir Home Tuition. All rights reserved.</span>
+      <span>Learning made simple, practical, and hands-on.</span>
+    </div>
+  </footer>
+
+  <a href="tel:9764828999" class="fab-call" aria-label="Call Us">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+    Call 9764828999
+  </a>
+
+  <div class="modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <div class="modal-panel-contact">
+      <button class="modal-close" type="button" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <span class="eyebrow">Contact</span>
+      <h3 id="contactTitle" style="font-size:30px; margin-top:16px">Choose who to text</h3>
+      <p class="muted" style="font-size:14px; margin-top:6px">Select an option below to start a conversation.</p>
+
+      <div class="contact-options">
+        <a href="https://wa.me/9779768797777" target="_blank" class="contact-card">
+          <div class="contact-icon">A</div>
+          <div class="contact-info">
+            <h4>Anish Sir</h4>
+            <span>Chat on WhatsApp (9768797777)</span>
+          </div>
+          <div class="contact-arrow" aria-hidden="true">→</div>
+        </a>
+
+        <a href="https://wa.me/9779764773463" target="_blank" class="contact-card">
+          <div class="contact-icon">R</div>
+          <div class="contact-info">
+            <h4>Ridam</h4>
+            <span>Chat on WhatsApp (9764773463)</span>
+          </div>
+          <div class="contact-arrow" aria-hidden="true">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="projectsModal" role="dialog" aria-modal="true">
+    <div class="modal-panel-generic">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div>
+          <span class="eyebrow">Interactive Track</span>
+          <h3 id="projectsModalTitle" style="margin: 8px 0 0 0; font-size: 24px;">Projects &amp; Tasks</h3>
+        </div>
+        <button class="modal-close" style="position: static;" type="button" aria-label="Close projects">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <p class="muted" id="projectsModalDesc" style="font-size: 14px; margin-bottom: 20px;"></p>
+      
+      <div id="pdfDownloadSection" style="display: none; margin-bottom: 20px;">
+        <a href="python.pdf" download class="btn btn-primary btn-small">Download python.pdf</a>
+      </div>
+
+      <div class="project-grid" id="projectGrid"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="scratchPathsModal" role="dialog" aria-modal="true">
+    <div class="modal-panel-generic">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div>
+          <span class="eyebrow">Scratch Projects</span>
+          <h3 style="margin: 8px 0 0 0; font-size: 24px;">Select a Scratch Project</h3>
+        </div>
+        <button class="modal-close" style="position: static;" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="materials-scroll">
+        <div style="margin-bottom: 24px;">
+          <h4 style="margin-bottom: 12px; font-size: 18px;">Introduction to Scratch</h4>
+          <div class="project-grid">
+            <button class="project-card open-iframe" data-url="https://projects.raspberrypi.org/en/projects/space-talk">
+              <span class="project-tag">Module 1</span>
+              <h5>Space Talk</h5>
+              <span>Learn how to make sprites talk and animate</span>
+            </button>
+            <button class="project-card open-iframe" data-url="https://projects.raspberrypi.org/en/projects/ghostbusters">
+              <span class="project-tag">Module 1</span>
+              <h5>Ghostbusters</h5>
+              <span>Make a fast-paced ghost-catching game</span>
+            </button>
+            <button class="project-card open-iframe" data-url="https://projects.raspberrypi.org/en/projects/chatbot">
+              <span class="project-tag">Module 1</span>
+              <h5>Chatbot</h5>
+              <span>Program an interactive talking character</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin-bottom: 12px; font-size: 18px;">More Scratch</h4>
+          <div class="project-grid">
+            <button class="project-card open-iframe" data-url="https://projects.raspberrypi.org/en/projects/dodgeball">
+              <span class="project-tag">Module 2</span>
+              <h5>Dodgeball</h5>
+              <span>Make a multi-level platformer game</span>
+            </button>
+            <button class="project-card open-iframe" data-url="https://projects.raspberrypi.org/en/projects/brain-game">
+              <span class="project-tag">Module 2</span>
+              <h5>Brain Game</h5>
+              <span>Create an interactive math quiz challenge</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="iframeModal" role="dialog" aria-modal="true">
+    <div class="modal-panel-iframe">
+      <div class="iframe-header">
+        <div>
+          <span class="eyebrow">Interactive Environment</span>
+          <h3 style="margin: 8px 0 0 0; font-size: 24px;">Project Editor</h3>
+        </div>
+        <button class="modal-close" style="position: static;" type="button" aria-label="Close viewer">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="iframe-container">
+        <div class="iframe-loader" id="iframeLoader">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <svg class="spinner" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+            Loading project environment...
+          </div>
+        </div>
+        <iframe id="contentIframe" src="about:blank" title="Embedded Content"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const $ = (selector, parent = document) => parent.querySelector(selector);
+      const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+
+      $("#year").textContent = new Date().getFullYear();
+
+      const themes = ["dark", "light", "beige"];
+      let currentTheme = localStorage.getItem("dsa-theme") || "dark";
+      const themeBtn = $("#themeBtn");
+
+      function applyTheme(themeName) {
+        document.body.classList.remove("light", "beige");
+        if (themeName !== "dark") document.body.classList.add(themeName);
+        
+        currentTheme = themeName;
+        localStorage.setItem("dsa-theme", themeName);
+        
+        const isDark = themeName === "dark";
+        const isLight = themeName === "light";
+        
+        const darkIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+        const lightIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+        const beigeIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`;
+
+        themeBtn.innerHTML = isDark ? darkIcon : isLight ? lightIcon : beigeIcon;
+        themeBtn.title = `Switch Theme (Current: ${themeName})`;
+      }
+      
+      applyTheme(currentTheme);
+      themeBtn.addEventListener("click", () => {
+        applyTheme(themes[(themes.indexOf(currentTheme) + 1) % themes.length]);
+      });
+
+      const menuBtn = $("#menuBtn");
+      const nav = $("#mainNav");
+
+      menuBtn.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("open");
+        menuBtn.setAttribute("aria-expanded", String(isOpen));
+        
+        const closeIcon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+        const openIcon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+        menuBtn.innerHTML = isOpen ? closeIcon : openIcon;
+      });
+
+      $$("#mainNav a").forEach(link => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("open");
+          menuBtn.setAttribute("aria-expanded", "false");
+          menuBtn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+        });
+      });
+
+      let lastFocusedElement = null;
+
+      function openModalObj(modalEl) {
+        lastFocusedElement = document.activeElement;
+        modalEl.classList.add("open");
+        modalEl.removeAttribute("aria-hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModalObj(modalEl) {
+        modalEl.classList.remove("open");
+        modalEl.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        
+        if (modalEl.id === "iframeModal") {
+          $("#contentIframe").src = "about:blank";
+        }
+        
+        if (lastFocusedElement) lastFocusedElement.focus();
+      }
+
+      $$(".modal-close").forEach(btn => {
+        btn.addEventListener("click", () => closeModalObj(btn.closest(".modal")));
+      });
+
+      $$(".modal").forEach(mod => {
+        mod.addEventListener("click", (e) => { 
+          if (e.target === mod) closeModalObj(mod); 
+        });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        const openModal = $(".modal.open");
+        if (!openModal) return;
+        if (e.key === "Escape") { closeModalObj(openModal); return; }
+        if (e.key === "Tab") {
+          const focusable = $$('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])', openModal);
+          if(!focusable.length) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            last.focus(); e.preventDefault();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            first.focus(); e.preventDefault();
+          }
+        }
+      });
+
+      $$(".open-contact").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModalObj($("#contactModal"));
+        });
+      });
+      $$(".contact-card").forEach(card => card.addEventListener("click", () => setTimeout(() => closeModalObj($("#contactModal")), 300)));
+
+      $$(".open-scratch-paths").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModalObj($("#scratchPathsModal"));
+        });
+      });
+
+      $$(".open-iframe").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetUrl = btn.dataset.url;
+          if ($("#scratchPathsModal").classList.contains("open")) {
+            closeModalObj($("#scratchPathsModal"));
+          }
+          const iframeModal = $("#iframeModal");
+          const iframeLoader = $("#iframeLoader");
+          const contentIframe = $("#contentIframe");
+          
+          openModalObj(iframeModal);
+          iframeLoader.style.opacity = "1";
+          iframeLoader.style.pointerEvents = "all";
+          contentIframe.src = targetUrl;
+          
+          contentIframe.onload = () => {
+            iframeLoader.style.opacity = "0";
+            iframeLoader.style.pointerEvents = "none";
+          };
+        });
+      });
+
+      const courseUrls = {
+        "python": "https://www.youtube.com/watch?v=K5KVEU3aaeQ&t=33s",
+        "html": "https://www.youtube.com/watch?v=a_iQb1lnAEQ",
+        "css": "https://www.youtube.com/watch?v=G3e-cpL7ofc",
+        "javascript": "https://www.youtube.com/watch?v=Zi-Q0t4gMC8",
+        "cpp": "https://www.youtube.com/watch?v=-TkoO8Z07hI"
+      };
+
+      $$(".open-video").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const lang = btn.dataset.lang;
+          const targetUrl = courseUrls[lang] || courseUrls["python"];
+          window.open(targetUrl, "_blank");
+        });
+      });
+
+      const projectsData = {
+        "python": {
+          title: "Python Practical Projects",
+          desc: "Complete the following real-world assignments to master Python syntax and structure.",
+          isPython: true,
+          items: [
+            { tag: "Core", title: "Image Pixel Manipulation", desc: "Build a program using loop structures to calculate and modify RGB values for photo filtering." },
+            { tag: "Game", title: "Green Screen Chroma Keyer", desc: "Compare RGB values of individual pixels to place foreground objects on chosen backgrounds." },
+            { tag: "Logic", title: "Birthday Countdown Calculator", desc: "Accept user input and calculate exact age and remaining days until the next birthday." }
+          ]
+        },
+        "html": {
+          title: "HTML Projects",
+          desc: "Practice semantic structuring and build essential site components.",
+          isPython: false,
+          items: [
+            { tag: "Structure", title: "Personal Portfolio Page", desc: "Structure a full personal portfolio using header, main, section, and article tags." },
+            { tag: "Forms", title: "Student Survey Form", desc: "Build an accessible registration form complete with input validation and dropdowns." }
+          ]
+        },
+        "css": {
+          title: "CSS Projects",
+          desc: "Modern layout construction using Flexbox, CSS Grid, and custom animations.",
+          isPython: false,
+          items: [
+            { tag: "Layout", title: "Responsive Product Grid", desc: "Create a flexible product card showcase using CSS Grid and media queries." },
+            { tag: "UI", title: "Interactive Pricing Table", desc: "Design a clean pricing component with hover effects, transitions, and shadows." }
+          ]
+        },
+        "javascript": {
+          title: "JavaScript Projects",
+          desc: "Hands-on projects to master DOM manipulation, arrays, and event handlers.",
+          isPython: false,
+          items: [
+            { tag: "App", title: "Dynamic Task Manager", desc: "Build a todo application with localStorage persistence and interactive completion toggles." },
+            { tag: "Logic", title: "Interactive Quiz Engine", desc: "Program a timed quiz with dynamic score tracking and instant answer validation." }
+          ]
+        },
+        "cpp": {
+          title: "C++ Projects",
+          desc: "Low-level and object-oriented exercises for algorithm practice.",
+          isPython: false,
+          items: [
+            { tag: "OOP", title: "Banking Account Manager", desc: "Implement classes, inheritance, and transaction logging using object-oriented principles." },
+            { tag: "Data", title: "Student Record System", desc: "Write a CLI program using pointers and memory allocation to sort and manage records." }
+          ]
+        }
+      };
+
+      $$(".open-projects").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const lang = btn.dataset.lang;
+          const data = projectsData[lang];
+          if (!data) return;
+
+          $("#projectsModalTitle").textContent = data.title;
+          $("#projectsModalDesc").textContent = data.desc;
+
+          const pdfSection = $("#pdfDownloadSection");
+          pdfSection.style.display = data.isPython ? "block" : "none";
+
+          const container = $("#projectGrid");
+          container.innerHTML = data.items.map(item => `
+            <div class="project-card">
+              <span class="project-tag">${item.tag}</span>
+              <h5>${item.title}</h5>
+              <span>${item.desc}</span>
+            </div>
+          `).join("");
+
+          openModalObj($("#projectsModal"));
+        });
+      });
+
+      const suggestionForm = $("#suggestionForm");
+      const inboxFeed = $("#inboxFeed");
+
+      suggestionForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const textInput = $("#suggestionInput");
+        const suggestionText = textInput.value.trim();
+        if(!suggestionText) return;
+
+        const newItem = document.createElement("div");
+        newItem.className = "inbox-item";
+        newItem.innerHTML = `
+          ${suggestionText}
+          <span>Just now · Anonymous Suggestion</span>
+        `;
+        inboxFeed.prepend(newItem);
+
+        textInput.value = "";
+        showToast("Anonymous suggestion successfully added to the inbox.");
+      });
+
+      const toast = $("#toast");
+      let toastTimer;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 3500);
+      }
+
+      const sections = $$("main section[id]").filter(s => s.id !== "join");
+      const navLinks = $$("#mainNav a");
+
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries.filter(e => e.isIntersecting);
+        if (visible.length === 0) return;
+        const mostVisible = visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        navLinks.forEach(link => {
+          link.classList.toggle("active", link.getAttribute("href") === `#${mostVisible.target.id}`);
+        });
+      }, { rootMargin: "-25% 0px -60% 0px", threshold: [0, 0.2, 0.5] });
+
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+</body>
+</html>
